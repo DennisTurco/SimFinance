@@ -50,6 +50,18 @@ This statistical model reflects how, in many real-world financial cases, most re
 
 st.markdown("---")
 
+st.subheader("Investment Calculation")
+st.markdown("It works using the future value of an ordinary annuity formula:")
+st.latex(r"FV = C \times ACF(r, n) = C \times \left( \frac{(1 + r)^n - 1}{r} \right)")
+st.markdown("""
+Where:
+- **FV**: Future Value
+- **C**: Cash flow per period (e.g., annual investment)
+- **r**: Interest rate per period (as a decimal, e.g., 0.05 for 5%)
+- **n**: Number of periods (e.g., years)
+""")
+
+
 st.subheader("🔐 How Your Data Is Used")
 
 st.markdown("""

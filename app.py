@@ -2,6 +2,8 @@ import streamlit as st
 import messages as m
 import form as f
 
+st.logo("imgs/logo.png", size="large", icon_image=None)
+
 m.main_title()
 m.main_description()
 
