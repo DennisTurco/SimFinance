@@ -22,6 +22,6 @@ This project is **open source** and free to use or modify.
 Feel free to explore the repository or contribute to its development:
 """)
 
-    st.page_link("https://github.com/tuo-username/simfinance", label="🟢 GitHub Repository")
+    st.page_link("https://github.com/DennisTurco/SimFinance", label="🟢 GitHub Repository")
 
     st.markdown("**Note:** All simulations are intended for educational purposes only.")
