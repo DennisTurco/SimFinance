@@ -54,24 +54,38 @@ class UserData:
 
 
     def calculate_total_net_income(self) -> float:
-        return self.__calculate_total_gross_income() - self.__calculate_total_expenses()
+        return (
+            self.__calculate_total_gross_income()
+            - self.__calculate_total_expenses()
+            + self.__calculate_total_net_from_investments()
+        )
 
 
     def __calculate_total_gross_income(self) -> float:
         total_income: float = 0.0
         current_income: float = self.monthly_income * 12 # annual income
 
-        for _ in range (self.age + 1, self.retirement_age):
+        for _ in range (self.age, self.retirement_age): # includes income from current age to retirement
             total_income += current_income
             current_income += (current_income * self.income_growth_pct / 100) # compound growth
 
         return total_income + self.__calculate_total_gross_from_investments()
 
+    def __calculate_total_net_from_investments(self) -> float:
+        return (
+            self.__calculate_total_gross_from_investments()
+            - self.__calculate_total_expenses_from_investements()
+        )
 
     def __calculate_total_gross_from_investments(self) -> float:
-        ages = self.retirement_age - self.age
+        years = self.retirement_age - self.age
         annual_investment = self.monthly_investments * 12
-        return self.__future_value_annuity(annual_investment, self.expected_returns, ages)
+        return self.__future_value_annuity(annual_investment, self.expected_returns, years)
+
+
+    def __calculate_total_expenses_from_investements(self):
+        years = self.retirement_age - self.age
+        return self.monthly_investments * 12 * years
 
 
     def __future_value(self, present_value: float, growth_percentage: float, ages: int) -> float:
