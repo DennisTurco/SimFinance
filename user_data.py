@@ -62,40 +62,31 @@ class UserData:
         )
 
 
-    def __calculate_total_gross_income(self) -> float:
-        total_income: float = 0.0
-        current_income: float = self.monthly_income * 12 # annual income
-
-        for _ in range (self.age, self.retirement_age): # includes income from current age to retirement
-            total_income += current_income
-            current_income += (current_income * self.income_growth_pct / 100) # compound growth
-
-        return total_income + self.__calculate_total_gross_from_investments()
-
-    def __calculate_total_net_from_investments(self) -> float:
-        return (
-            self.__calculate_total_gross_from_investments()
-            - self.__calculate_total_expenses_from_investements()
-        )
-
-    def __calculate_total_gross_from_investments(self) -> float:
-        years = self.retirement_age - self.age
-        annual_investment = self.monthly_investments * 12
-        return self.__future_value_annuity(annual_investment, self.expected_returns, years)
-
-
-    def __calculate_total_expenses_from_investements(self):
-        years = self.retirement_age - self.age
-        return self.monthly_investments * 12 * years
+    # I don't think this is the right way... i should it year by year
+    # def __calculate_total_net_from_investments(self) -> float:
+    #     return (
+    #         self.__calculate_total_gross_from_investments()
+    #         - self.__calculate_total_expenses_from_investements()
+    #     )
+    # def __calculate_total_gross_income(self) -> float:
+    #     total_income: float = 0.0
+    #     current_income: float = self.monthly_income * 12 # annual income
+    #     for _ in range (self.age, self.retirement_age): # includes income from current age to retirement
+    #         total_income += current_income
+    #         current_income += (current_income * self.income_growth_pct / 100) # compound growth
+    #     return total_income + self.__calculate_total_gross_from_investments()
+    # def __calculate_total_gross_from_investments(self) -> float:
+    #     years = self.retirement_age - self.age
+    #     annual_investment = self.monthly_investments * 12
+    #     return self.__future_value_annuity(annual_investment, self.expected_returns, years)
+    # def __future_value_annuity(self, annual_contribution: float, rate_pct: float, years: int) -> float:
+    #     rate = rate_pct / 100
+    #     return annual_contribution * ((pow(1 + rate, years) - 1) / rate)
+    # def __calculate_total_expenses_from_investements(self):
+    #     years = self.retirement_age - self.age
+    #     return self.monthly_investments * 12 * years
 
 
-    def __future_value(self, present_value: float, growth_percentage: float, ages: int) -> float:
-        return present_value * pow((1 + growth_percentage/100), ages)
-
-
-    def __future_value_annuity(self, annual_contribution: float, rate_pct: float, years: int) -> float:
-        rate = rate_pct / 100
-        return annual_contribution * ((pow(1 + rate, years) - 1) / rate)
 
 
     def __calculate_total_expenses(self) -> float:
