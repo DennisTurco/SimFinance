@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-import random
 
 @dataclass
 class UserData:
@@ -52,61 +51,3 @@ class UserData:
             self.unexpected_event_prob is not None and
             self.unexpected_event_freq_years is not None
         )
-
-
-    def calculate_total_net_income(self) -> float:
-        return (
-            self.__calculate_total_gross_income()
-            - self.__calculate_total_expenses()
-            + self.__calculate_total_net_from_investments()
-        )
-
-
-    # I don't think this is the right way... i should it year by year
-    # def __calculate_total_net_from_investments(self) -> float:
-    #     return (
-    #         self.__calculate_total_gross_from_investments()
-    #         - self.__calculate_total_expenses_from_investements()
-    #     )
-    # def __calculate_total_gross_income(self) -> float:
-    #     total_income: float = 0.0
-    #     current_income: float = self.monthly_income * 12 # annual income
-    #     for _ in range (self.age, self.retirement_age): # includes income from current age to retirement
-    #         total_income += current_income
-    #         current_income += (current_income * self.income_growth_pct / 100) # compound growth
-    #     return total_income + self.__calculate_total_gross_from_investments()
-    # def __calculate_total_gross_from_investments(self) -> float:
-    #     years = self.retirement_age - self.age
-    #     annual_investment = self.monthly_investments * 12
-    #     return self.__future_value_annuity(annual_investment, self.expected_returns, years)
-    # def __future_value_annuity(self, annual_contribution: float, rate_pct: float, years: int) -> float:
-    #     rate = rate_pct / 100
-    #     return annual_contribution * ((pow(1 + rate, years) - 1) / rate)
-    # def __calculate_total_expenses_from_investements(self):
-    #     years = self.retirement_age - self.age
-    #     return self.monthly_investments * 12 * years
-
-
-
-
-    def __calculate_total_expenses(self) -> float:
-        # total_expenses: float = 0
-        # return total_expenses
-        return 0
-
-    def _calculate_expenses_for_unexpected_events(self) -> float:
-        total_expenses: float = 0.0
-        event_count: int = 0
-
-        # Calculate the number of unexpected events
-        for _ in range(self.unexpected_event_freq_years):
-            if random.random() < (self.unexpected_event_prob / 100):
-                event_count += 1
-
-        # Estimate expense for each unexpected event
-        for _ in range(event_count):
-            # Assume each event costs between half to full monthly expenses
-            expense = random.uniform(self.monthly_expenses / 2, self.monthly_expenses)
-            total_expenses += expense
-
-        return total_expenses
