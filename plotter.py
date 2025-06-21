@@ -7,6 +7,8 @@ class Plotter():
     def generate_random_walk_chart(generations: list[int]):
         st.divider()
         st.subheader("Random Walk Simulation")
+        
+        # TODO: il valore di partenaz deve essere current_liquid value
 
         fig, ax = plt.subplots()
 

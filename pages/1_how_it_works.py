@@ -1,5 +1,12 @@
 import streamlit as st
 
+
+icon_img = "imgs/logo.png"
+banner_img = "imgs/banner.png"
+st.logo(banner_img, icon_image=icon_img)
+
+st.sidebar.markdown("In this page you can see in depth and understand the logic used for financial calculations.")
+
 st.title("SimFinance - How it works")
 
 st.markdown("""
