@@ -68,6 +68,35 @@ Where:
 - **n**: Number of periods (e.g., years)
 """)
 
+st.markdown("---")
+
+st.subheader("Inflation Calculation")
+st.markdown("We use the compound inflation formula:")
+
+st.latex(r"I = (1 + r)^n")
+
+st.markdown("""
+Where:
+- **I** = Total cumulative inflation
+- **r** = Annual inflation rate (as a decimal, e.g., 0.05 for 5%)
+- **n** = Number of years
+""")
+
+st.markdown("---")
+
+st.subheader("Income growth Calculation")
+st.markdown("We use the compound growth formula (same for the inflation):")
+
+st.latex(r"G = (1 + r)^n")
+
+st.markdown("""
+Where:
+- **G** = Total cumulative growth
+- **r** = Annual growth rate (as a decimal, e.g., 0.05 for 5%)
+- **n** = Number of years
+""")
+
+st.markdown("---")
 
 st.subheader("🔐 How Your Data Is Used")
 

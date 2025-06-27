@@ -14,9 +14,63 @@ class FinancialCalculator():
         self.report = []
 
     def calculate_totals_over_years(self) -> list[YearlyReport]:
-        for _ in range (self._years):
-            self.report.append(YearlyReport(self._calculate_total_gross_income(), self._calculate_month_expenses(), self._calculate_expenses_for_unexpected_events()))
+        investment_history = self._simulate_investment_growth()
+
+        for year in range(self._years):
+            inflation_factor = self._get_inflation_multiplier(year)
+            growth_factor = self._get_income_multiplier(year)
+
+            base_income = self._calculate_total_gross_income() * growth_factor
+            base_expenses = self._calculate_month_expenses() * 12 * inflation_factor
+            unexpected_expenses = self._calculate_expenses_for_unexpected_events() * inflation_factor
+
+            if self._data.investements:
+                investment_balance, total_contributions = investment_history[year]
+                investment_gains = investment_balance - total_contributions
+            else:
+                investment_balance = 0
+                investment_gains = 0
+
+            self.report.append(YearlyReport(
+                base_income,
+                base_expenses,
+                unexpected_expenses,
+                investment_gains
+            ))
+
         return self.report
+
+    def _simulate_investment_growth(self) -> list[float]:
+        investment_balance = 0.0
+        history = []
+        total_contributions = 0.0
+
+        if not self._data.investements:
+            return [0.0] * self._years
+
+        for _ in range(self._years):
+            annual_contribution = self._data.monthly_investments * 12
+            total_contributions += annual_contribution
+            investment_balance += annual_contribution
+
+            simulated_return = random.normalvariate(
+                self._data.expected_returns,
+                self._data.returns_std_dev
+            ) / 100
+
+            gross_gain = investment_balance * simulated_return
+
+            if gross_gain > 0:
+                taxed_gain = gross_gain * (1 - self._data.investment_tax_pct / 100)
+            else:
+                taxed_gain = gross_gain
+
+            investment_balance += taxed_gain
+            history.append((investment_balance, total_contributions))
+
+        return history
+
+
 
     def _calculate_total_net_from_investments(self) -> float:
         return (
@@ -65,3 +119,11 @@ class FinancialCalculator():
             total_expenses += expense
 
         return total_expenses
+
+    def _get_inflation_multiplier(self, year: int) -> float:
+        inflation_rate = self._data.estimated_inflation / 100
+        return pow(1 + inflation_rate, year)
+
+    def _get_income_multiplier(self, year: int) -> float:
+        growth_rate = self._data.income_growth_pct / 100
+        return pow(1 + growth_rate, year)

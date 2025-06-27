@@ -2,10 +2,13 @@ from dataclasses import dataclass
 
 @dataclass
 class UserData:
+    # Plotting settings
+    n_generations: int # the number of generations for the plot
+
     # Personal details and context
     age: int  # Current age of the user
     retirement_age: int  # Estimated age of retirement
-    housing_status: str  # 'rent', 'mortgage', 'owned' (housing situation)
+    #housing_status: str  # 'rent', 'mortgage', 'owned', 'none' (housing situation)
 
     # Current financial situation
     liquid_capital: float  # Current liquid capital (savings, investments, etc.)
@@ -15,10 +18,10 @@ class UserData:
     income_growth_pct: float  # Annual income growth rate (e.g., salary increases, promotions)
 
     # Investment risk and returns
+    investements: bool
     monthly_investments: float  # Monthly amount allocated to investments
     expected_returns: float  # Expected annual return on investments (%)
     returns_std_dev: float  # Standard deviation of returns (risk/volatility)
-    investment_risk_profile: str  # 'low', 'medium', 'high' (investment risk level)
     investment_tax_pct: float  # Tax percentage on investment gains
 
     # Economic factors and unexpected events
@@ -27,21 +30,22 @@ class UserData:
     unexpected_event_freq_years: int  # Frequency of unexpected events (in years, e.g., every 5 years)
 
     def all_data_filled(self, investements: bool) -> bool:
+        self.investments = investements
+
         investements_filled = (
             not investements or (
                 self.monthly_investments is not None and
                 self.expected_returns is not None and
                 self.returns_std_dev is not None and
-                self.investment_risk_profile is not None and
                 self.investment_tax_pct is not None
             )
         )
 
         return (
             investements_filled and
+            self.n_generations is not None and
             self.age is not None and
             self.retirement_age is not None and
-            self.housing_status is not None and
             self.liquid_capital is not None and
             self.monthly_income is not None and
             self.monthly_expenses is not None and

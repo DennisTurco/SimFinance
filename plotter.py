@@ -7,8 +7,6 @@ class Plotter():
     def generate_random_walk_chart(generations: list[int]):
         st.divider()
         st.subheader("Random Walk Simulation")
-        
-        # TODO: il valore di partenaz deve essere current_liquid value
 
         fig, ax = plt.subplots()
 
@@ -19,8 +17,5 @@ class Plotter():
         ax.set_xlabel("Year")
         ax.set_ylabel("Cumulative value")
         ax.grid(True)
-
-        if len(generations) <= 10:
-            ax.legend()
 
         st.pyplot(fig)
