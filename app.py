@@ -1,10 +1,14 @@
 import streamlit as st
+import streamlit.components.v1 as components
+from google_analitycs import GoogleAnalytics
 import messages as m
 import form as f
 from plotter import Plotter
 from finalcial_calculator import FinancialCalculator
 from user_data import UserData
 from yearly_report import YearlyReport
+
+components.html(GoogleAnalytics.ga_code, height=0)
 
 icon_img = "imgs/logo.png"
 banner_img = "imgs/banner.png"

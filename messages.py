@@ -25,3 +25,12 @@ Feel free to explore the repository or contribute to its development:
     st.page_link("https://github.com/DennisTurco/SimFinance", label="🟢 GitHub Repository")
 
     st.markdown("**Note:** All simulations are intended for educational purposes only.")
+
+    st.markdown(
+    """
+<a href="https://www.paypal.com/donate?hosted_button_id=T3VS495WT36LE" target="_blank">
+    <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate with PayPal button" />
+</a>
+    """,
+    unsafe_allow_html=True
+)

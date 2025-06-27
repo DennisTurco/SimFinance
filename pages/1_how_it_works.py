@@ -1,5 +1,9 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
+from google_analitycs import GoogleAnalytics
+
+components.html(GoogleAnalytics.ga_code, height=0)
 
 icon_img = "imgs/logo.png"
 banner_img = "imgs/banner.png"
