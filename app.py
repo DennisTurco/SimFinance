@@ -8,7 +8,9 @@ from finalcial_calculator import FinancialCalculator
 from user_data import UserData
 from yearly_report import YearlyReport
 
-components.html(GoogleAnalytics.ga_code, height=0)
+components.html("""
+    <img src="https://www.google-analytics.com/collect?v=1&t=pageview&tid=G-KDQGVK5JZQ&cid=12345&dp=%2Fsimfinance" width="1" height="1" style="display:none;" />
+""", height=0)
 
 icon_img = "imgs/logo.png"
 banner_img = "imgs/banner.png"
